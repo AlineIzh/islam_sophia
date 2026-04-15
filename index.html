@@ -724,12 +724,12 @@
             </div>
 
             <div class="sm-questionnaire__form item-animation item-atop item-active">
-                <form class="sm-form" id="guestForm" method="POST">
+                <form class="sm-form" id="guestForm" action="https://formsubmit.co/seliverstova.sofya@inbox.ru" method="POST">
                     <!-- Formsubmit.co настройки -->
                     <input type="hidden" name="_subject" value="Гость подтвердил присутствие — свадьба Ислама и Сони 💍">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
-                    <input type="hidden" name="_next" value="https://islam-sophia-wedding2.pages.dev">
+                    <input type="hidden" name="_next" value="https://alineizh.github.io/islam-sophia?sent=1">
                     <input type="text" name="_honey" style="display:none">
                     
                     
@@ -12101,57 +12101,58 @@ $(window).on('load', function() {
   observer.observe(path.closest('svg') || path);
 })();
 </script>
-<!-- FORMSUBMIT JS -->
+<!-- GOOGLE SHEETS JS -->
 <script>
 (function(){
+  var SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz2q8hAx11jv0vXXtSqHh9zO1XKorNBZdTR4vRGhnKJ7CQk54RUthxPcjgOA_zYv7HQ/exec';
   var form = document.getElementById('guestForm');
   if (!form) return;
-
   form.addEventListener('submit', function(e) {
-    e.preventDefault();
-    var btn = document.getElementById('guestSubmitBtn');
-    var success = document.getElementById('formSuccess');
-    btn.disabled = true;
-    btn.textContent = 'Отправляем...';
-
-    var data = new FormData(form);
-    var obj = {};
-    data.forEach(function(val, key){
-      if (key.startsWith('_') || key === 'bot-field') return;
-      if (obj[key]) {
-        obj[key] = obj[key] + ', ' + val;
-      } else {
-        obj[key] = val;
-      }
-    });
-
-    fetch('https://formsubmit.co/ajax/seliverstova.sofya@inbox.ru', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(obj)
-    })
-    .then(function(resp){ return resp.json(); })
-    .then(function(data){
-      if (data.success === 'true' || data.success === true) {
-        form.style.display = 'none';
-        success.style.display = 'block';
-      } else {
-        btn.disabled = false;
-        btn.textContent = 'Подтвердить';
-        alert('Ошибка отправки. Попробуйте ещё раз.');
-      }
-    })
-    .catch(function(){
-      btn.disabled = false;
-      btn.textContent = 'Подтвердить';
-      alert('Нет соединения. Проверьте интернет и попробуйте снова.');
-    });
+    // Собираем данные формы
+    var name = form.querySelector('[name="Имя и Фамилия"]') ? form.querySelector('[name="Имя и Фамилия"]').value : '';
+    var presenceEl = form.querySelector('[name="Присутствие"]:checked');
+    var presence = presenceEl ? presenceEl.value : '';
+    var drinkEls = form.querySelectorAll('[name="Напитки"]:checked');
+    var drinks = Array.from(drinkEls).map(function(el){ return el.value; }).join(', ');
+    var wishEl = form.querySelector('[name="Пожелание"]');
+    var wish = wishEl ? wishEl.value : '';
+    // Отправляем в Google Таблицу (не ждём ответа — форма продолжит отправку)
+    try {
+      navigator.sendBeacon(SCRIPT_URL, JSON.stringify({name: name, presence: presence, drinks: drinks, wish: wish}));
+    } catch(err) {
+      fetch(SCRIPT_URL, {
+        method: 'POST',
+        body: JSON.stringify({name: name, presence: presence, drinks: drinks, wish: wish}),
+        keepalive: true
+      }).catch(function(){});
+    }
+    // Форма отправляется на Formsubmit как обычно
   });
 })();
 </script>
+<!-- FORMSUBMIT JS -->
+<script>
+(function(){
+  // Показать сообщение об успехе если вернулись после отправки
+  if (window.location.search.indexOf('sent=1') !== -1) {
+    var form = document.getElementById('guestForm');
+    var success = document.getElementById('formSuccess');
+    if (form) form.style.display = 'none';
+    if (success) {
+      success.style.display = 'block';
+      // Открыть модальное окно если закрыто
+      var modal = document.querySelector('.sm-questionnaire.sm-modal');
+      if (modal) {
+        modal.classList.add('sm-modal-open');
+        modal.style.display = 'block';
+      }
+    }
+    // Убрать ?sent=1 из адресной строки
+    history.replaceState({}, '', window.location.pathname);
+  }
+})();
+</script>
+
 <!-- WEDDING TIMER JS -->
 <script>
 (function(){
