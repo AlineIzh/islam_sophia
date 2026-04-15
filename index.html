@@ -808,11 +808,10 @@
                     <div class="item-animation item-atop item-active">
                         <button class="sm-btn text-paint-text" type="submit" id="guestSubmitBtn">Подтвердить</button>
                     </div>
-                    <div id="formSuccess" style="display:none;text-align:center;padding:20px;font-size:1.1em;color:#b62d09;">
-                        ✓ Спасибо! Ваш ответ получен 🌸
-                    </div>
                 </form>
             </div>
+            <!-- SUCCESS MESSAGE вне формы -->
+            <div id="formSuccess" style="display:none;text-align:center;padding:40px 20px;"></div>
             <a class="sm-btn text-paint-text sm-only-mobile open-modal item-animation item-aright item-active" data-sm-anketa-send="1">Подтвердить</a>
         </div>
     </section>
@@ -12144,11 +12143,14 @@ $(window).on('load', function() {
     }).catch(function(){});
 
     // Показываем сообщение об успехе
-    form.style.display = 'none';
+    var formWrap = document.querySelector('.sm-questionnaire__form');
+    if (formWrap) formWrap.style.display = 'none';
     var success = document.getElementById('formSuccess');
     if (success) {
-      success.style.display = 'block';
-      success.innerHTML = '<div style="font-size:2em;margin-bottom:10px;">🌸</div><div style="font-size:1.2em;font-weight:bold;margin-bottom:8px;">Спасибо! Ваш ответ принят</div><div style="font-size:0.95em;opacity:0.8;">Мы с нетерпением ждём вас на нашей свадьбе!</div>';
+      success.style.cssText = 'display:block;text-align:center;padding:60px 20px;';
+      success.innerHTML = '<div style="font-size:3em;margin-bottom:16px;">🌸</div>'
+        + '<div style="font-size:1.6em;font-weight:bold;margin-bottom:12px;line-height:1.3;">Спасибо!<br>Ваш ответ принят</div>'
+        + '<div style="font-size:1.05em;opacity:0.85;line-height:1.5;">Мы с нетерпением ждём вас<br>на нашей свадьбе!</div>';
     }
   });
 })();
