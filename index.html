@@ -1608,7 +1608,7 @@ h1,h2,h3{
   position: absolute !important;
   right: 0% !important;
   left: auto !important;
-  top: 0px !important;
+  top: 2px !important;
   width: 160px !important;
   height: 70px !important;
   transform: rotate(10deg) !important;
@@ -1618,7 +1618,7 @@ h1,h2,h3{
   position: absolute !important;
   right: 2% !important;
   left: auto !important;
-  top: 50px !important;
+  top: 52px !important;
   width: 80px !important;
   height: 75px !important;
   color: #b82e08 !important;
@@ -1906,7 +1906,7 @@ h1,h2,h3{
         <path d="M45,10 C43.5,7 40,6 40,4 C40,2.5 41.2,1 43,1 C44,1 44.7,1.7 45,2.5 C45.3,1.7 46,1 47,1 C48.8,1 50,2.5 50,4 C50,6 46.5,7 45,10Z" fill="#f0a0b0" opacity="0" style="animation:float-up 2s ease-out 1.5s infinite"/>
       </svg>
     </div>
-    <div class="wish-text">Будем очень признательны, если вы воздержитесь от криков «Горько». Ведь поцелуй — это знак выражения чувств, и он не может быть по зову.</div>
+    <div class="wish-text">Будем очень признательны, если вы воздержитесь от криков «Горько». Ведь поцелуй — это знак выражения чувств, и он не может быть по заказу.</div>
   </div>
 
   <!-- Блок 2: Подарки / Конверт -->
@@ -14110,6 +14110,83 @@ html {
   padding-bottom: 0 !important;
 }
 
+
+/* ===== v8: Targeted fixes =====
+   1. "Когда" label — larger text on small screens, closer to arrow
+   2. Bride arrow — exact symmetry (already handled inline above)
+   3. Timing hearts — no overlap with numbers on large screens
+   ================================ */
+
+/* ── FIX: "Когда" SVG text size on all small screens (≤ 600px) ── */
+@media (max-width: 600px) {
+  .sm-datetime__decor {
+    width: 145px !important;
+    top: 8px !important;
+    right: 13% !important;
+  }
+  .sm-datetime__decor text,
+  .sm-datetime__decor textPath {
+    font-size: 28px !important;
+  }
+  /* Arrow sits just below "Когда", gap reduced */
+  .sm-datetime__decor-arr {
+    top: 44px !important;
+    right: 17% !important;
+    width: 46px !important;
+    height: 46px !important;
+  }
+}
+
+/* ── FIX: "Когда" on very small phones (≤ 400px) ── */
+@media (max-width: 400px) {
+  .sm-datetime__decor {
+    width: 120px !important;
+    right: 8% !important;
+  }
+  .sm-datetime__decor text,
+  .sm-datetime__decor textPath {
+    font-size: 24px !important;
+  }
+  .sm-datetime__decor-arr {
+    right: 11% !important;
+    width: 38px !important;
+    height: 38px !important;
+  }
+}
+
+/* ── FIX: Timing section hearts — no overlap with numbers ── */
+/* On large screens the 4 items are in a row; push hearts clear of the numbers */
+@media (min-width: 901px) {
+  /* decor-heart-6 stays top-right but above the numbers row */
+  .sm-timing .decor-heart-6 {
+    top: -8px !important;
+    right: 0% !important;
+  }
+  /* decor-heart-7 → move to BOTTOM-LEFT, away from "23:00" */
+  .sm-timing .decor-heart-7 {
+    position: absolute !important;
+    top: auto !important;
+    bottom: -8px !important;
+    left: 0% !important;
+    right: auto !important;
+    width: clamp(24px, 2.8vw, 38px) !important;
+  }
+}
+
+/* Medium screens: hearts near corners, not numbers */
+@media (min-width: 601px) and (max-width: 900px) {
+  .sm-timing .decor-heart-7 {
+    top: auto !important;
+    bottom: 0 !important;
+    left: 2% !important;
+    right: auto !important;
+    width: 28px !important;
+  }
+  .sm-timing .decor-heart-6 {
+    top: 0 !important;
+    right: 2% !important;
+  }
+}
 </style>
 </body>
 </html>
