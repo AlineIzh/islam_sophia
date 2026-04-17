@@ -13638,48 +13638,62 @@ html {
 }
 
 /* ════════════════════════════════════════
-   FIX 3: Тайминг — центрирование и ровные интервалы
-   Используем простой block-поток с text-align:center,
-   без flexbox на контейнере — чтобы заголовок гарантированно
-   шёл ДО списка и не накладывался.
+   FIX 3: Тайминг — мобильный stack, десктопный row
+   Секция имеет чёткие padding'и чтобы не накладываться на
+   соседнюю секцию «Дресс-код».
    ════════════════════════════════════════ */
 .sm-timing {
   text-align: center !important;
+  padding: clamp(30px, 4.5vw, 64px) 0 clamp(40px, 6vw, 80px) 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
 }
 .sm-timing .sm-container {
   position: relative !important;
   display: block !important;
   text-align: center !important;
   width: 100% !important;
-  padding-top: clamp(16px, 3vw, 36px) !important;
-  padding-bottom: clamp(16px, 3vw, 36px) !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  overflow: visible !important;
 }
 .sm-timing .sm-title {
   display: block !important;
   text-align: center !important;
   width: 100% !important;
-  margin: 0 auto clamp(20px, 3vw, 40px) auto !important;
+  margin: 0 auto clamp(24px, 4vw, 48px) auto !important;
   padding: 0 !important;
   position: relative !important;
   z-index: 2 !important;
 }
+/* Мобильный: колонка, элементы друг под другом */
 .sm-timing__items {
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: clamp(16px, 2.5vw, 28px) !important;
   width: 100% !important;
   max-width: 520px !important;
   margin: 0 auto !important;
   padding: 0 clamp(10px, 2vw, 20px) !important;
   position: relative !important;
   text-align: center !important;
+  height: auto !important;
+  min-height: 0 !important;
 }
 .sm-timing-text {
-  display: block !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
   width: 100% !important;
+  max-width: 260px !important;
+  height: auto !important;
+  min-height: 0 !important;
   text-align: center !important;
-  margin: 0 auto clamp(14px, 2vw, 22px) auto !important;
-}
-.sm-timing-text:last-of-type {
-  margin-bottom: 0 !important;
+  margin: 0 auto !important;
+  padding: 0 !important;
 }
 .sm-timing__item__time {
   display: block !important;
@@ -13694,6 +13708,22 @@ html {
   line-height: 1.4 !important;
   margin: clamp(2px, 0.3vw, 6px) auto 0 auto !important;
   text-align: center !important;
+}
+/* Десктоп (≥ 900px): восстанавливаем оригинальный ряд из 4 колонок */
+@media (min-width: 900px) {
+  .sm-timing__items {
+    flex-direction: row !important;
+    flex-wrap: nowrap !important;
+    align-items: flex-start !important;
+    justify-content: space-between !important;
+    gap: clamp(16px, 2vw, 32px) !important;
+    max-width: 900px !important;
+    padding: 0 20px !important;
+  }
+  .sm-timing-text {
+    flex: 1 1 0 !important;
+    max-width: 200px !important;
+  }
 }
 /* Сердечки в разделе тайминг — по краям, не на контенте */
 .sm-timing .decor-heart-6 {
@@ -13958,6 +13988,27 @@ html {
 @media (min-width: 1920px) {
   .sm-container { max-width: 1080px !important; }
   .sm-section { padding: 80px 0 !important; }
+}
+
+/* ─── Точечные правки v6 ─── */
+/* 1) Убираем «Где» и стрелку полностью */
+.sm-location__decor,
+.sm-location__decor-arr { display: none !important; }
+
+/* 2) Центрирование текста в кнопке «Как добраться» */
+.sm-location .sm-btn {
+  text-align: center !important;
+  line-height: 1.2 !important;
+  vertical-align: middle !important;
+}
+
+/* 3) Сердечко decor-heart-7 уводим в сторону от «Сбор гостей» */
+.sm-timing .decor-heart-7 {
+  bottom: auto !important;
+  top: 0 !important;
+  left: auto !important;
+  right: clamp(2%, 4%, 8%) !important;
+  width: clamp(20px, 2.5vw, 34px) !important;
 }
 </style>
 </body>
