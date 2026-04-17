@@ -1027,6 +1027,80 @@ h1,h2,h3{
   }
 }
 
+
+
+/* FINAL LOCATION FIX - force real centering and remove hidden offsets */
+.sm-location {
+  padding: 32px 0 32px !important;
+}
+.sm-location .sm-container {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  gap: 12px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+.sm-location .sm-section__text {
+  margin: 0 auto 6px !important;
+  text-align: center !important;
+}
+.sm-location__image,
+.sm-location__image.sm-shared__image__decor,
+.sm-location .sm-container > .sm-location__image.item-animation.item-atop {
+  margin: 0 auto !important;
+  padding: 0 !important;
+}
+.sm-location .sm-container > .item-animation.item-atop:has(.sm-btn),
+.sm-location .sm-container > div.item-animation.item-atop:has(a.sm-btn) {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  margin: 6px auto 0 !important;
+  padding: 0 !important;
+  min-height: 0 !important;
+  height: auto !important;
+  transform: none !important;
+  translate: 0 0 !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+}
+.sm-location .sm-container > .item-animation.item-atop:has(.sm-btn) > a.sm-btn,
+.sm-location .sm-container > div.item-animation.item-atop:has(a.sm-btn) > a.sm-btn {
+  margin: 0 !important;
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  top: auto !important;
+  bottom: auto !important;
+}
+.sm-location__decor,
+.sm-location__decor-arr {
+  display: none !important;
+}
+@media (max-width: 767px) {
+  .sm-location .sm-container { gap: 10px !important; }
+  .sm-location .sm-container > .item-animation.item-atop:has(.sm-btn) { margin-top: 2px !important; }
+}
+
+
+
+/* 4) Финальная центровка текста внутри кнопки на всех экранах */
+.sm-location .sm-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  min-height: 56px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
 </style>
 </head>
 <body class="sm-template113 sm-color1 sm-scroll_type-1 sm-scroll_speed-1 sm-hfont-0 sm-project-">
@@ -1297,24 +1371,20 @@ h1,h2,h3{
                 <h2 class="sm-title item-animation item-aleft" data-sm-text="LOCATION_TITLE" title="Место проведения">Место проведения</h2>
                 <div class="sm-text text-paint-border item-animation item-aright" data-sm-text="LOCATION_TEXT" title="г. Ижевск, свадебная площадка &quot;Оранжерея&quot;"><p>г. Ижевск, свадебная площадка "Оранжерея"</p></div>
             </div>
-            <div class="sm-location__image sm-shared__image__decor sm-js-animation item-animation item-atop" style="--decor-width: 434px;">
+            <div class="sm-location__image sm-shared__image__decor sm-js-animation item-animation item-atop" style="--decor-width: 434px; margin-bottom: 0 !important;">
                 <div class="sm-img">
                     <img src="https://optim.tildacdn.com/tild3933-6261-4239-a565-643134663864/-/format/webp/photo.png.webp" data-sm-src="LOCATION_PHOTO" alt="">
                 </div>
             </div>
-            <svg class="decor-note text-no-paint sm-location__decor item-animation item-aright" viewBox="0 0 200 100" style="height: 100px; width: 240px;">
+            <div style="display:flex;justify-content:center;margin-top:16px;" class="item-animation item-atop">
+                <a class="sm-btn text-paint-text text-paint-border" data-sm-href="LOCATION_MAP" href="https://yandex.ru/maps/-/CPvQmK4y" target="_blank" style="margin-top:0!important;">Как добраться</a>
+            </div>
+            <svg class="decor-note text-no-paint sm-location__decor item-animation item-aright" viewBox="0 0 200 100" style="display:none;">
                 <path id="curve-top-location" d="M10,70 Q100,-30 200,70" fill="transparent" style=""></path>
                 <text fill="black" font-size="52">
                     <textPath href="#curve-top-location" startOffset="18%" data-sm-text="LOCATION_SUBTITLE" title="Где">Где</textPath>
                 </text>
             </svg>
-            <svg class="sm-location__decor-arr item-active" width="42" height="96" viewBox="0 0 42 96" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path d="M14 10 C20 28, 24 48, 24 78" stroke="currentColor" stroke-width="3" stroke-linecap="round" fill="none"/>
-  <path d="M16 66 L24 80 L33 66" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
-</svg>
-            <div class="item-animation item-atop">
-                <a class="sm-btn text-paint-text text-paint-border" data-sm-href="LOCATION_MAP" href="https://yandex.ru/maps/-/CPvQmK4y" target="_blank">Как добраться</a>
-            </div>
         </div>
     </section>
 <section class="sm-timing sm-section sm-edit" data-type="4">
@@ -1376,10 +1446,7 @@ h1,h2,h3{
                         
                     </div>
                 </div>
-                    <div style="text-align:center;margin-top:20px;max-width:480px;margin-left:auto;margin-right:auto;font-size:1em;line-height:1.7;color:inherit;">
-                        Вы можете выбрать любой цвет наряда пастельных тонов.<br>
-                        Просим избегать насыщенных цветов,<br>а также черного, белого и красного.
-                    </div>
+                    <div style="display:flex;justify-content:center;gap:24px;margin-top:8px;">
                 <div class="decor-heart-8 item-animation item-aright">
                     <svg width="42" height="50" viewBox="0 0 44 54" fill="none" class="text-no-paint-stroke">
                         <use xlink:href="#decor-7"></use>
@@ -1391,6 +1458,11 @@ h1,h2,h3{
                         <use xlink:href="#decor-6"></use>
                     </svg>
                 </div>
+                </div>
+                <div style="text-align:center;margin-top:12px;max-width:480px;margin-left:auto;margin-right:auto;font-size:1em;line-height:1.7;color:inherit;">
+                        Вы можете выбрать любой цвет наряда пастельных тонов.<br>
+                        Просим избегать насыщенных цветов,<br>а также черного, белого и красного.
+                    </div>
             </div>
         </div>
     </section>
@@ -1804,6 +1876,20 @@ h1,h2,h3{
   .sm-decor-bye-1 { left: 10% !important; width: 215px !important; height: 78px !important; }
   .sm-decor-bye-2 { left: 46% !important; top: 54px !important; width: 158px !important; height: 62px !important; }
 }
+
+
+/* 4) Финальная центровка текста внутри кнопки на всех экранах */
+.sm-location .sm-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  min-height: 56px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
 </style>
 
 <div class="wishes-blocks">
@@ -13808,13 +13894,13 @@ html {
   line-height: 1.55 !important;
   padding: 0 clamp(10px, 2vw, 18px) !important;
 }
-/* Сердечки дресс-кода — УВОДИМ С ФОТО: правое вниз-вправо, левое вниз-влево от подписи */
+/* Сердечки дресс-кода — стоят в отдельной flex-строке между фото и текстом */
 .sm-dresscode .decor-heart-8 {
-  position: absolute !important;
-  right: clamp(2%, 5%, 10%) !important;
-  bottom: clamp(12px, 2vw, 28px) !important;
+  position: relative !important;
   left: auto !important;
+  right: auto !important;
   top: auto !important;
+  bottom: auto !important;
   width: clamp(26px, 3vw, 42px) !important;
   z-index: 2 !important;
   pointer-events: none !important;
@@ -13826,11 +13912,11 @@ html {
   display: block !important;
 }
 .sm-dresscode .decor-heart-9 {
-  position: absolute !important;
-  left: clamp(2%, 5%, 10%) !important;
-  bottom: clamp(12px, 2vw, 28px) !important;
+  position: relative !important;
+  left: auto !important;
   right: auto !important;
   top: auto !important;
+  bottom: auto !important;
   width: clamp(26px, 3vw, 42px) !important;
   z-index: 2 !important;
   pointer-events: none !important;
@@ -14010,6 +14096,20 @@ html {
   right: clamp(2%, 4%, 8%) !important;
   width: clamp(20px, 2.5vw, 34px) !important;
 }
+
+
+/* 4) Финальная центровка текста внутри кнопки на всех экранах */
+.sm-location .sm-btn {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  line-height: 1 !important;
+  min-height: 56px !important;
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
 </style>
 </body>
 </html>
